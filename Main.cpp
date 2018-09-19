@@ -45,6 +45,10 @@ int main()
 		sf::Event event;
 		while (gameWindow.pollEvent(event))
 		{
+			// Process input on critters
+			myCritter.Input(event);
+
+
 			if (event.type == sf::Event::Closed)
 			{
 				gameWindow.close();
