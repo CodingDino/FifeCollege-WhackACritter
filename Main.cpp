@@ -3,6 +3,8 @@
 // --------------------------------------
 // Libraries
 #include <SFML/Graphics.hpp>
+#include <cstdlib> // gives access to random funcs
+#include <ctime> // gives access to time funcs
 
 // Project includes
 #include "Critter.h"
@@ -21,6 +23,9 @@ int main()
 
 	// Timer functionality
 	sf::Clock gameClock;
+
+	// Seed our random number generator
+	srand(time(NULL));
 
 	// Create an instance of our Critter class
 	Critter myCritter;
