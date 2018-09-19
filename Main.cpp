@@ -29,10 +29,13 @@ int main()
 	srand(time(NULL));
 
 	// Create an instance of our Critter class
-	Critter myCritter;
-	myCritter.Setup("graphics/hippo.png", 10);
-	Critter secondCritter;
-	secondCritter.Setup("graphics/narwhal.png", 5);
+	const int NUM_CRITTERS = 5;
+	Critter critters[NUM_CRITTERS];
+	critters[0].Setup("graphics/hippo.png", 10);
+	critters[1].Setup("graphics/narwhal.png", 5);
+	critters[2].Setup("graphics/giraffe.png", 1);
+	critters[3].Setup("graphics/rhino.png", 8);
+	critters[4].Setup("graphics/walrus.png", 100);
 
 	// Game font
 	sf::Font gameFont;
@@ -63,9 +66,10 @@ int main()
 		while (gameWindow.pollEvent(event))
 		{
 			// Process input on critters
-			myCritter.Input(event);
-			secondCritter.Input(event);
-
+			for (int i = 0; i < NUM_CRITTERS; ++i)
+			{
+				critters[i].Input(event);
+			}
 
 			if (event.type == sf::Event::Closed)
 			{
@@ -83,10 +87,11 @@ int main()
 		sf::Time frameTime = gameClock.restart();
 
 		// See if there is any pending score
-		score += myCritter.GetPendingScore();
-		myCritter.ClearPendingScore();
-		score += secondCritter.GetPendingScore();
-		secondCritter.ClearPendingScore();
+		for (int i = 0; i < NUM_CRITTERS; ++i)
+		{
+			score += critters[i].GetPendingScore();
+			critters[i].ClearPendingScore();
+		}
 		scoreText.setString("Score: " + std::to_string(score));
 
 		// end update
@@ -102,8 +107,10 @@ int main()
 		gameWindow.clear();
 
 		// Draw Everything
-		myCritter.Draw(gameWindow);
-		secondCritter.Draw(gameWindow);
+		for (int i = 0; i < NUM_CRITTERS; ++i)
+		{
+			critters[i].Draw(gameWindow);
+		}
 		gameWindow.draw(scoreText);
 
 		// Display the window contents to the screen
